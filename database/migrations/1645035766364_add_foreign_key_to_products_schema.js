@@ -7,18 +7,27 @@ class AddForeignKeyToProductsSchema extends Schema {
   up() {
     this.raw(`
         ALTER TABLE products
-        ADD CONSTRAINT brand_id
-        FOREIGN KEY (brand_id)
-        REFERENCES brands(id)
+        ADD CONSTRAINT fk_brand_id_products
+        FOREIGN KEY (brand_id) REFERENCES brands(id),
+        ADD CONSTRAINT fk_user_id_products
+        FOREIGN KEY (user_id) REFERENCES users(id)
     `);
   }
-
   down() {
     this.raw(`
-    ALTER TABLE products
-    DROP FOREIGN KEY brand_id
-    `);
+        ALTER TABLE products
+        DROP FOREIGN KEY brand_id
+        `);
+    this.raw(`
+        ALTER TABLE products
+        DROP FOREIGN KEY user_id
+        `);
   }
 }
+// Removed below due to error:
+// sqlMessage: "Duplicate foreign key constraint name 'user_id'",
+
+// ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES users(id),
+// ADD CONSTRAINT brand_id FOREIGN KEY (brand_id) REFERENCES brands(id)
 
 module.exports = AddForeignKeyToProductsSchema;

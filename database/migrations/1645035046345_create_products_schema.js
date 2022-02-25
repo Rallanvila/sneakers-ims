@@ -13,14 +13,15 @@ class CreateProductsSchema extends Schema {
         material VARCHAR(60) NOT NULL,
         description TEXT NOT NULL,
         brand_id INT UNSIGNED,
-        qty INT UNSIGNED,
-        size FLOAT UNSIGNED,
+        qty INT UNSIGNED NOT NULL,
+        size FLOAT UNSIGNED NOT NULL,
+        user_id INT UNSIGNED NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `);
   }
-
+  //brand_id INT UNSIGNED,
   down() {
     this.raw(`Drop TABLE products`);
   }
