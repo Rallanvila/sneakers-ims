@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 const Database = use("Database");
 const sanitize = require("sqlstring");
@@ -37,10 +38,11 @@ class ProductController {
       const post = request.post();
       await Database.raw(
         `
-                INSERT INTO products (title, sku, material, qty, description, brand_id, size, user_id)
+                INSERT INTO products (title, sku, img_url, material, qty, description, brand_id, size, user_id)
                 Values(
                     ${sanitize.escape(post.title)},
                     ${sanitize.escape(post.sku)},
+                    ${sanitize.escape(post.img_url)},
                     ${sanitize.escape(post.material)},
                     ${sanitize.escape(post.qty)},
                     ${sanitize.escape(post.description)},
@@ -59,7 +61,38 @@ class ProductController {
   create({ view, request, response }) {
     return view.render("admin/products/create");
   }
-  show({ view, request, response }) {
+  async show({ view, request, response, params }) {
+    try {
+      let product = await Database.raw(`
+          SELECT 
+              products.id,
+              products.title,
+              products.sku,
+              products.img_url,
+              products.description,
+              products.material,
+              products.qty,
+              products.size,
+              products.user_id,
+              products.created_at,
+              brands.title as brand,
+              CONCAT(users.f_name, ' ', users.l_name) as user
+          FROM products
+          INNER JOIN brands
+          ON products.brand_id = brands.id
+          INNER JOIN users
+          ON products.user_id = users.id
+          WHERE products.id = ${params.id}
+          ORDER BY created_at ASC
+          LIMIT 1
+        `);
+      product = product[0][0];
+      return view.render("admin/products/show", { product });
+    } catch (error) {
+      return response.redirect("back");
+      //   `<h1 style="color:red">There was an error:</h1>
+      //       <h3>${error.sqlMessage}</h3>`;
+    }
     return view.render("admin/products/show");
   }
   edit({ view, request, response }) {
