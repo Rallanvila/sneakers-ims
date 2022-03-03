@@ -27,6 +27,8 @@
                                 <th scope="col">Size</th>
                                 <th scope="col">Brand</th>
                                 <th scope="col">Created By</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Options</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,12 +41,20 @@
                                 <td>{{product.qty}}</td>
                                 <td>{{product.size}}</td>
                                 <td>{{product.brand}}</td>
-                                <td>{{product.created_at}}</td>
-
+                                <td>{{product.user}}</td>
+                                <td><span class="status-p bg-primary">pending</span></td>
                                 <td>
                                     <ul class="d-flex justify-content-center">
-                                        <li class="mr-3"><a href="admin/products/{{product.id}}/edit" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                        <li><a href="admin/products/{{product.id}}/delete" class="text-danger"><i class="ti-trash"></i></a></li>
+                                        <li class="mr-3">
+                                            <a href="/admin/products/{{product.id}}/edit" class="text-secondary">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/admin/products/{{product.id}}/delete" class="text-danger">
+                                                <i class="ti-trash"></i>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </td>
                             </tr>
