@@ -18,15 +18,10 @@ const Route = use("Route");
 
 // Route.on('/').render('welcome')
 Route.get("/", "PageController.index");
-
 Route.get("/admin/products", "Admin/ProductController.index");
 Route.post("/admin/products", "Admin/ProductController.store");
-
 Route.get("/admin/products/create", "Admin/ProductController.create");
 Route.get("/admin/products/:id", "Admin/ProductController.show");
-Route.get("admin/products/:id", "Admin/ProductController.show");
-Route.get("admin/products/:id/create", "Admin/ProductController.show");
-Route.get("admin/products/:id/edit", "Admin/ProductController.show");
 Route.get("/admin/products/:id/edit", "Admin/ProductController.edit");
-Route.put("/admin/products/:id/edit", "Admin/ProductController.update");
+Route.put("/admin/products/:id", "Admin/ProductController.update");
 Route.get("/admin/products/:id/delete", "Admin/ProductController.delete");

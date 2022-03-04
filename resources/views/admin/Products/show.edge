@@ -6,7 +6,7 @@
     <ul class="breadcrumbs pull-left">
         <li><a href="/admin">Dashboard</a></li>
         <li><a href="/admin/products">All Products</a></li>
-        <li><span>Show</span></li>
+        <li><span>{{product.title}}</span></li>
     </ul>
 </div>
 @endsection
@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <img style="width: 100%" 
-                        src="https://images.complex.com/complex/images/c_crop,h_1033,w_1837,x_127,y_427/c_fill,dpr_auto,f_auto,q_auto,w_1400/fl_lossy,pg_1/u3m6q393lpyz6uw4jvxd/adidas-yeezy-boost-350-v2-beluga-reflective-gw1229-lateral?fimg-ssr-default" class="show-products-img" alt="">
+                        src="{{product.img_url}}" class="show-products-img" alt="">
                     </div>
                     <div class="col-md-8">
                         <h2>{{product.title}}</h2>
@@ -39,11 +39,11 @@
     <div class="col-md-3 mt-5">
         <div class="card">
             <div class="card-body">
-                <a href="/products/{{product.id}}/edit" class="btn btn-primary btn-lg btn-block mb-3">
+                <a href="/admin/products/{{product.id}}/edit" class="btn btn-primary btn-lg btn-block mb-3">
                     <i class="ti-pencil"></i>
                     Edit
                 </a>
-                <a href="/products/{{product.id}}/delete" class="btn btn-danger btn-lg btn-block mb-3" onclick="return confirm('are you sure?')">
+                <a href="/admin/products/{{product.id}}/delete" class="btn btn-danger btn-lg btn-block mb-3" onclick="return confirm('are you sure?')">
                     <i class="ti-trash"></i>
                     Delete
                 </a>
